@@ -1,4 +1,4 @@
-### INSERT(really cool bio)
+### insert really cool bio it leaves you awestruck
 
 <!--
 **ansusta/ansusta** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
