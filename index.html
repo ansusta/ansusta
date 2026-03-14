@@ -3,38 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Introduction</title>
+    <title>Personal Introduction - tasusna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4b0082; /* Dark purple */
+            --secondary-color: #8a2be2; /* Medium purple */
+            --accent-color: #dda0dd; /* Light purple */
+            --text-color: #f0f0f0; /* Light text */
+            --background-gradient: linear-gradient(135deg, #2e003e 0%, #1a001a 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--background-gradient);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23dda0dd" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'), auto;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s linear infinite;
+        }
+
+        .particle:nth-child(odd) {
+            animation-duration: 8s;
+            animation-delay: -2s;
+        }
+
+        .particle:nth-child(3n) {
+            animation-duration: 10s;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: rgba(75, 0, 130, 0.3);
+            border-bottom: 2px solid var(--secondary-color);
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--secondary-color), 0 0 20px var(--secondary-color);
+            animation: glow 2s ease-in-out infinite alternate;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        h1 i {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--secondary-color), 0 0 20px var(--secondary-color); }
+            to { text-shadow: 0 0 20px var(--secondary-color), 0 0 30px var(--secondary-color); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .spell-button {
+            background: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+        }
+
+        .spell-button:hover {
+            background: var(--accent-color);
+            box-shadow: 0 0 20px rgba(221, 160, 221, 0.8);
+            transform: scale(1.05);
+        }
+
+        main {
+            flex: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid var(--secondary-color);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5);
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        li:hover {
+            color: var(--accent-color);
+        }
+
+        li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+        }
+
+        .hidden-message {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(138, 43, 226, 0.2);
+            border-radius: 5px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(75, 0, 130, 0.3);
+            border-top: 2px solid var(--secondary-color);
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+                flex-direction: column;
+            }
+            main {
+                padding: 1rem 0.5rem;
+            }
+            section {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, I'm tasusna!</h1>
-    <p>Welcome to my personal introduction page. Here I will share a little bit about myself.</p>
+    <!-- Floating particles -->
+    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+    <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
+    <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
+    <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+    <div class="particle" style="left: 70%; animation-delay: 6s;"></div>
+    <div class="particle" style="left: 80%; animation-delay: 7s;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 8s;"></div>
 
-    <section id="bio">
-        <h2>About Me</h2>
-        <p>My name is tasusna. I am currently a student. I love to learn new things and engage in exciting projects!</p>
-    </section>
+    <header>
+        <h1><i class="fas fa-hat-wizard"></i> Hello, I'm tasusna! <i class="fas fa-hat-wizard"></i></h1>
+        <p>Welcome to my enchanted personal introduction page.</p>
+        <button class="spell-button" onclick="castSpell()"><i class="fas fa-magic"></i> Cast a Spell</button>
+    </header>
 
-    <section id="hobbies">
-        <h2>Hobbies</h2>
-        <ul>
-            <li>playing video games</li>
-            <li>watching anime</li>
-            <li>reading novels/mangas/hwas/huas</li>
-        </ul>
-    </section>
+    <main>
+        <section id="bio">
+            <h2><i class="fas fa-user-circle"></i> About Me</h2>
+            <p>My name is tasusna. I am currently a student. I love to learn new things and engage in exciting projects!</p>
+        </section>
 
-    <section id="interests">
-        <h2>Interests</h2>
-        <p>I am particularly interested in fantasy stuff. Can't wait to share more with you!</p>
-    </section>
-    <section id="links">
-        <h2>my contacts</h2>
-        <p>this is just the trial page i will add more stuff later</p>
-    </section>
-    
+        <section id="hobbies">
+            <h2><i class="fas fa-gamepad"></i> Hobbies</h2>
+            <ul>
+                <li>playing video games</li>
+                <li>watching anime</li>
+                <li>reading novels/mangas/hwas/huas</li>
+            </ul>
+        </section>
+
+        <section id="interests">
+            <h2><i class="fas fa-dragon"></i> Interests</h2>
+            <p>I am particularly interested in fantasy stuff. Can't wait to share more with you!</p>
+        </section>
+
+        <section id="links">
+            <h2><i class="fas fa-address-book"></i> My Contacts</h2>
+            <p>This is just the trial page. I will add more magical stuff later!</p>
+            <div id="hidden-message" class="hidden-message">
+                <i class="fas fa-sparkles"></i> You've unlocked a secret! More magic coming soon... <i class="fas fa-sparkles"></i>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <p>Thank you for visiting my page!</p>
+        <p><i class="fas fa-wand-magic-sparkles"></i> Thank you for visiting my mystical page! <i class="fas fa-wand-magic-sparkles"></i></p>
     </footer>
+
+    <script>
+        function castSpell() {
+            const message = document.getElementById('hidden-message');
+            if (message.style.display === 'none' || message.style.display === '') {
+                message.style.display = 'block';
+                // Add some magic effect
+                document.body.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 500);
+            } else {
+                message.style.display = 'none';
+            }
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Create more floating particles dynamically
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+
+        // Create new particles every few seconds
+        setInterval(createParticle, 2000);
+    </script>
 </body>
 </html>
