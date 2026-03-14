@@ -3,303 +3,711 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Introduction - tasusna</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>✦ tasusna's Grimoire ✦</title>
+    <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4b0082; /* Dark purple */
-            --secondary-color: #8a2be2; /* Medium purple */
-            --accent-color: #dda0dd; /* Light purple */
-            --text-color: #f0f0f0; /* Light text */
-            --background-gradient: linear-gradient(135deg, #2e003e 0%, #1a001a 100%);
+            --void: #05030f;
+            --deep: #0d0820;
+            --arcane: #1a0f3a;
+            --purple-glow: #7c3aed;
+            --mystic: #a78bfa;
+            --pale: #e0d4ff;
+            --gold: #f4c842;
+            --gold-dim: #9a7c20;
+            --ember: #ff9d3a;
+            --star: #fffce8;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--background-gradient);
-            color: var(--text-color);
-            line-height: 1.6;
+            font-family: 'Crimson Pro', serif;
+            background: var(--void);
+            color: var(--pale);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             overflow-x: hidden;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23dda0dd" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'), auto;
+            cursor: none;
         }
 
-        /* Floating particles */
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--accent-color);
+        /* ── CANVAS BG ──────────────────────── */
+        #starfield {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── CUSTOM CURSOR ──────────────────── */
+        #cursor-dot {
+            position: fixed;
+            width: 8px; height: 8px;
+            background: var(--gold);
             border-radius: 50%;
             pointer-events: none;
-            animation: float 6s linear infinite;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 12px var(--gold), 0 0 24px var(--gold);
+            transition: transform 0.08s ease;
+        }
+        #cursor-ring {
+            position: fixed;
+            width: 28px; height: 28px;
+            border: 1.5px solid var(--mystic);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.18s ease, width 0.18s, height 0.18s;
+        }
+        body:has(a:hover, button:hover) #cursor-ring,
+        body:has(.card:hover) #cursor-ring {
+            width: 44px; height: 44px;
+            border-color: var(--gold);
         }
 
-        .particle:nth-child(odd) {
-            animation-duration: 8s;
-            animation-delay: -2s;
+        .spark {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9997;
+            border-radius: 50%;
+            animation: sparkFade 0.7s ease-out forwards;
+        }
+        @keyframes sparkFade {
+            0%   { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+            100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; }
         }
 
-        .particle:nth-child(3n) {
-            animation-duration: 10s;
-            animation-delay: -4s;
+        /* ── LAYOUT ─────────────────────────── */
+        .page-wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
         }
 
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-
+        /* ── HEADER ─────────────────────────── */
         header {
             text-align: center;
-            padding: 2rem 1rem;
-            background: rgba(75, 0, 130, 0.3);
-            border-bottom: 2px solid var(--secondary-color);
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            padding: 5rem 1rem 3rem;
             position: relative;
-            overflow: hidden;
         }
 
-        h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            color: var(--accent-color);
-            text-shadow: 0 0 10px var(--secondary-color), 0 0 20px var(--secondary-color);
-            animation: glow 2s ease-in-out infinite alternate;
+        .rune-circle {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 340px; height: 340px;
+            border-radius: 50%;
+            border: 1px solid rgba(167,139,250,0.15);
+            animation: rotateSlow 40s linear infinite;
+            pointer-events: none;
+        }
+        .rune-circle::before {
+            content: 'ᚠ ✦ ᚢ ✦ ᚦ ✦ ᚨ ✦ ᚱ ✦ ᚲ ✦ ᚷ ✦ ᚹ ✦ ᚺ ✦ ᚾ ✦ ᛁ ✦ ᛃ ✦ ᛇ ✦ ᛈ ✦ ᛉ ✦ ᛊ ✦ ᛏ ✦ ᛒ ✦ ᛖ ✦ ᛗ ✦';
+            position: absolute;
+            inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: rgba(167,139,250,0.35);
+            letter-spacing: 3px;
+            text-align: center;
+            line-height: 340px;
+            overflow: hidden;
+            width: 340px;
+            white-space: nowrap;
+            text-overflow: clip;
+        }
+        .rune-circle-2 {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 260px; height: 260px;
+            border-radius: 50%;
+            border: 1px solid rgba(244,200,66,0.1);
+            animation: rotateSlow 28s linear infinite reverse;
+            pointer-events: none;
         }
 
-        h1 i {
-            animation: spin 3s linear infinite;
-        }
+        @keyframes rotateSlow { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px var(--secondary-color), 0 0 20px var(--secondary-color); }
-            to { text-shadow: 0 0 20px var(--secondary-color), 0 0 30px var(--secondary-color); }
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .spell-button {
-            background: var(--secondary-color);
-            color: var(--text-color);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Cinzel', serif;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
-        }
-
-        .spell-button:hover {
-            background: var(--accent-color);
-            box-shadow: 0 0 20px rgba(221, 160, 221, 0.8);
-            transform: scale(1.05);
-        }
-
-        main {
-            flex: 1;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        section {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            border: 1px solid var(--secondary-color);
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .site-title {
+            font-family: 'Uncial Antiqua', cursive;
+            font-size: clamp(2.8rem, 8vw, 4.5rem);
+            color: var(--gold);
+            text-shadow:
+                0 0 20px rgba(244,200,66,0.6),
+                0 0 60px rgba(244,200,66,0.2),
+                0 0 120px rgba(124,58,237,0.4);
+            letter-spacing: 0.05em;
+            line-height: 1.1;
             position: relative;
+            animation: titleBreath 4s ease-in-out infinite alternate;
+        }
+        @keyframes titleBreath {
+            from { text-shadow: 0 0 20px rgba(244,200,66,0.6), 0 0 60px rgba(244,200,66,0.2); }
+            to   { text-shadow: 0 0 30px rgba(244,200,66,0.9), 0 0 80px rgba(244,200,66,0.35), 0 0 140px rgba(167,139,250,0.4); }
         }
 
-        section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5);
+        .site-subtitle {
+            font-family: 'IM Fell English SC', serif;
+            color: var(--mystic);
+            font-size: 0.95rem;
+            letter-spacing: 0.25em;
+            margin-top: 0.75rem;
+            opacity: 0.8;
         }
 
-        h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 0.5rem;
+        .spell-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 2.2rem;
+            padding: 0.7rem 1.8rem;
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            color: var(--void);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--ember) 100%);
+            border: none;
+            border-radius: 3px;
+            cursor: none;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 0 20px rgba(244,200,66,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+        .spell-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.25) 100%);
+            pointer-events: none;
+        }
+        .spell-btn:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 6px 30px rgba(244,200,66,0.5), 0 0 60px rgba(244,200,66,0.2);
+        }
+        .spell-btn:active { transform: scale(0.97); }
+        .spell-icon { font-size: 1.2rem; animation: wandWiggle 2s ease-in-out infinite; }
+        @keyframes wandWiggle {
+            0%,100% { transform: rotate(-10deg); }
+            50%      { transform: rotate(10deg); }
+        }
+
+        /* ── DIVIDER ────────────────────────── */
+        .ornament {
+            text-align: center;
+            color: var(--gold-dim);
+            font-size: 1.1rem;
+            letter-spacing: 0.6em;
+            margin: 1rem 0;
+            opacity: 0.6;
+        }
+
+        /* ── CARDS ──────────────────────────── */
+        .card {
+            background: linear-gradient(145deg, rgba(26,15,58,0.95), rgba(13,8,32,0.98));
+            border: 1px solid rgba(167,139,250,0.2);
+            border-radius: 4px;
+            padding: 2rem 2.2rem;
+            margin-bottom: 1.6rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at top left, rgba(124,58,237,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .card:hover {
+            border-color: rgba(244,200,66,0.4);
+            box-shadow: 0 0 30px rgba(124,58,237,0.2), 0 4px 40px rgba(0,0,0,0.5);
+            transform: translateY(-3px);
+        }
+
+        /* corner ornaments */
+        .card::after {
+            content: '◈';
+            position: absolute;
+            top: 0.6rem; right: 0.8rem;
+            color: rgba(244,200,66,0.25);
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        .card:hover::after { color: rgba(244,200,66,0.6); }
+
+        .card-title {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.25rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 1.1rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.7rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 1px solid rgba(167,139,250,0.15);
+        }
+        .card-title .icon {
+            width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(124,58,237,0.2);
+            border: 1px solid rgba(124,58,237,0.3);
+            border-radius: 3px;
+            font-size: 1rem;
         }
 
-        ul {
-            list-style: none;
-            padding-left: 0;
+        .card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(224,212,255,0.85);
+            font-weight: 300;
         }
 
-        li {
-            margin-bottom: 0.5rem;
-            padding-left: 1rem;
-            position: relative;
-            transition: color 0.3s ease;
+        /* ── HOBBY LIST ─────────────────────── */
+        .hobby-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .hobby-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.75rem 1rem;
+            background: rgba(124,58,237,0.1);
+            border: 1px solid rgba(124,58,237,0.2);
+            border-radius: 3px;
+            font-size: 1rem;
+            color: var(--pale);
+            transition: background 0.25s, border-color 0.25s, transform 0.25s;
+        }
+        .hobby-item:hover {
+            background: rgba(124,58,237,0.22);
+            border-color: rgba(244,200,66,0.35);
+            transform: translateX(4px);
+            color: var(--star);
+        }
+        .hobby-emoji { font-size: 1.4rem; filter: drop-shadow(0 0 6px rgba(244,200,66,0.5)); }
+
+        /* ── INTERESTS TAGS ─────────────────── */
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 0.7rem;
+        }
+        .tag {
+            padding: 0.35rem 0.9rem;
+            background: transparent;
+            border: 1px solid rgba(167,139,250,0.35);
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-family: 'IM Fell English SC', serif;
+            color: var(--mystic);
+            letter-spacing: 0.05em;
+            transition: all 0.25s;
+            cursor: none;
+        }
+        .tag:hover {
+            background: rgba(124,58,237,0.2);
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: 0 0 12px rgba(244,200,66,0.25);
         }
 
-        li:hover {
-            color: var(--accent-color);
-        }
-
-        li::before {
-            content: '✨';
-            position: absolute;
-            left: 0;
-        }
-
-        .hidden-message {
+        /* ── SECRET SCROLL ──────────────────── */
+        #secret-scroll {
             display: none;
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(138, 43, 226, 0.2);
-            border-radius: 5px;
-            animation: fadeIn 0.5s ease;
+            margin-top: 1.2rem;
+            padding: 1.2rem 1.5rem;
+            background: linear-gradient(135deg, rgba(244,200,66,0.06), rgba(124,58,237,0.1));
+            border: 1px solid rgba(244,200,66,0.25);
+            border-radius: 3px;
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.05rem;
+            color: var(--gold);
+            letter-spacing: 0.05em;
+            line-height: 1.9;
+            animation: scrollReveal 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+        @keyframes scrollReveal {
+            from { opacity: 0; transform: scaleY(0.8) translateY(-8px); }
+            to   { opacity: 1; transform: scaleY(1) translateY(0); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* ── SPELL FLASH ────────────────────── */
+        #spell-flash {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9000;
+            opacity: 0;
+            background: radial-gradient(ellipse at center, rgba(167,139,250,0.35) 0%, transparent 70%);
+            transition: opacity 0.08s ease;
+        }
+        #spell-flash.active { opacity: 1; transition: opacity 0.08s ease; }
+
+        /* ── RUNE BURST ─────────────────────── */
+        .rune-burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9001;
+            font-family: 'Uncial Antiqua', cursive;
+            color: var(--gold);
+            font-size: 1.4rem;
+            animation: runeFly 1.2s ease-out forwards;
+        }
+        @keyframes runeFly {
+            0%   { transform: translate(-50%,-50%) scale(0) rotate(0deg); opacity: 1; }
+            60%  { opacity: 0.8; }
+            100% { transform: translate(calc(-50% + var(--rdx)), calc(-50% + var(--rdy))) scale(1.5) rotate(var(--rot)); opacity: 0; }
         }
 
+        /* ── FOOTER ─────────────────────────── */
         footer {
             text-align: center;
-            padding: 1rem;
-            background: rgba(75, 0, 130, 0.3);
-            border-top: 2px solid var(--secondary-color);
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            padding: 2.5rem 1rem;
+            border-top: 1px solid rgba(124,58,237,0.2);
+            margin-top: 1rem;
+            color: rgba(167,139,250,0.5);
+            font-family: 'IM Fell English SC', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+        }
+        footer span { color: var(--gold); opacity: 0.7; }
+
+        /* ── RESPONSIVE ─────────────────────── */
+        @media (max-width: 600px) {
+            .rune-circle { width: 260px; height: 260px; }
+            .rune-circle-2 { width: 200px; height: 200px; }
+            .hobby-grid { grid-template-columns: 1fr; }
+            .card { padding: 1.4rem 1.2rem; }
         }
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
-                flex-direction: column;
-            }
-            main {
-                padding: 1rem 0.5rem;
-            }
-            section {
-                padding: 1rem;
-            }
+        /* ── ENTRANCE ANIMATIONS ────────────── */
+        .card { opacity: 0; transform: translateY(24px); }
+        .card.visible {
+            animation: cardEnter 0.65s cubic-bezier(0.16,1,0.3,1) forwards;
         }
+        @keyframes cardEnter {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card:nth-child(1) { animation-delay: 0.05s; }
+        .card:nth-child(2) { animation-delay: 0.15s; }
+        .card:nth-child(3) { animation-delay: 0.25s; }
+        .card:nth-child(4) { animation-delay: 0.35s; }
     </style>
 </head>
 <body>
-    <!-- Floating particles -->
-    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
-    <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
-    <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
-    <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
-    <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
-    <div class="particle" style="left: 70%; animation-delay: 6s;"></div>
-    <div class="particle" style="left: 80%; animation-delay: 7s;"></div>
-    <div class="particle" style="left: 90%; animation-delay: 8s;"></div>
 
+<div id="spell-flash"></div>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<canvas id="starfield"></canvas>
+
+<div class="page-wrap">
     <header>
-        <h1><i class="fas fa-hat-wizard"></i> Hello, I'm tasusna! <i class="fas fa-hat-wizard"></i></h1>
-        <p>Welcome to my enchanted personal introduction page.</p>
-        <button class="spell-button" onclick="castSpell()"><i class="fas fa-magic"></i> Cast a Spell</button>
+        <div class="rune-circle"></div>
+        <div class="rune-circle-2"></div>
+        <h1 class="site-title">✦ tasusna ✦</h1>
+        <p class="site-subtitle">Grimoire &nbsp;·&nbsp; Personal Tome &nbsp;·&nbsp; Vol. I</p>
+        <button class="spell-btn" id="spellBtn">
+            <span class="spell-icon">🪄</span>
+            Cast a Spell
+        </button>
     </header>
 
+    <div class="ornament">— ✦ —</div>
+
     <main>
-        <section id="bio">
-            <h2><i class="fas fa-user-circle"></i> About Me</h2>
-            <p>My name is tasusna. I am currently a student. I love to learn new things and engage in exciting projects!</p>
-        </section>
+        <div class="card" id="card-bio">
+            <h2 class="card-title">
+                <span class="icon">🔮</span>
+                The Summoner
+            </h2>
+            <p>
+                My name is <strong style="color:var(--gold)">tasusna</strong> — a student, an explorer,
+                a seeker of knowledge in both the mundane and mystical realms. This page is my grimoire:
+                a living record of who I am and what I love. It grows with every passing moon.
+            </p>
+        </div>
 
-        <section id="hobbies">
-            <h2><i class="fas fa-gamepad"></i> Hobbies</h2>
-            <ul>
-                <li>playing video games</li>
-                <li>watching anime</li>
-                <li>reading novels/mangas/hwas/huas</li>
-            </ul>
-        </section>
-
-        <section id="interests">
-            <h2><i class="fas fa-dragon"></i> Interests</h2>
-            <p>I am particularly interested in fantasy stuff. Can't wait to share more with you!</p>
-        </section>
-
-        <section id="links">
-            <h2><i class="fas fa-address-book"></i> My Contacts</h2>
-            <p>This is just the trial page. I will add more magical stuff later!</p>
-            <div id="hidden-message" class="hidden-message">
-                <i class="fas fa-sparkles"></i> You've unlocked a secret! More magic coming soon... <i class="fas fa-sparkles"></i>
+        <div class="card" id="card-hobbies">
+            <h2 class="card-title">
+                <span class="icon">⚔️</span>
+                Pursuits & Pastimes
+            </h2>
+            <div class="hobby-grid">
+                <div class="hobby-item"><span class="hobby-emoji">🎮</span> Video Games</div>
+                <div class="hobby-item"><span class="hobby-emoji">⛩️</span> Anime</div>
+                <div class="hobby-item"><span class="hobby-emoji">📖</span> Novels</div>
+                <div class="hobby-item"><span class="hobby-emoji">🖼️</span> Manga/Manhwa/manhua</div>
+                <div class="hobby-item"><span class="hobby-emoji">🌸</span> art</div>
+                <div class="hobby-item"><span class="hobby-emoji">✨</span> New Things</div>
             </div>
-        </section>
+        </div>
+
+        <div class="card" id="card-interests">
+            <h2 class="card-title">
+                <span class="icon">🐉</span>
+                Domains of Interest
+            </h2>
+            <div class="tag-cloud">
+                <span class="tag">✦ Fantasy</span>
+                <span class="tag">⚔️ Isekai</span>
+                <span class="tag">🌌 Magic Systems</span>
+                <span class="tag">🐉 Dragons</span>
+                <span class="tag">🌙 Dark Fantasy</span>
+                <span class="tag">🗺️ World-Building</span>
+                <span class="tag">🏰 Cultivation</span>
+                <span class="tag">🌟 More Soon...</span>
+            </div>
+        </div>
+
+        <div class="card" id="card-contact">
+            <h2 class="card-title">
+                <span class="icon">📜</span>
+                Contacts & Links
+            </h2>
+            <p style="font-style:italic; color:rgba(167,139,250,0.7);">
+                This is the trial scroll. Further enchantments are in the works —<br>
+                more links, more lore, more magic. Return when the moon is full.
+            </p>
+            <div id="secret-scroll">
+                ✦ A secret has been revealed ✦<br>
+                You possess the instinct of a true seeker.<br>
+                The grimoire recognises your curiosity.<br>
+                New pages will be added when the time is right... 🌙
+            </div>
+        </div>
     </main>
 
+    <div class="ornament">— ᚠ ᚢ ᚦ ᚨ —</div>
+
     <footer>
-        <p><i class="fas fa-wand-magic-sparkles"></i> Thank you for visiting my mystical page! <i class="fas fa-wand-magic-sparkles"></i></p>
+        <p><span>✦</span> &nbsp; Written in starlight by tasusna &nbsp; <span>✦</span></p>
+        <p style="margin-top:0.4rem; font-size:0.78rem; opacity:0.5; letter-spacing:0.1em;">Est. MMXXV</p>
     </footer>
+</div>
 
-    <script>
-        function castSpell() {
-            const message = document.getElementById('hidden-message');
-            if (message.style.display === 'none' || message.style.display === '') {
-                message.style.display = 'block';
-                // Add some magic effect
-                document.body.style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    document.body.style.animation = '';
-                }, 500);
-            } else {
-                message.style.display = 'none';
+<script>
+/* ── STARFIELD ────────────────────────────────── */
+(function() {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let W, H, stars = [], shootingStars = [];
+
+    function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function randBetween(a, b) { return a + Math.random() * (b - a); }
+
+    for (let i = 0; i < 220; i++) {
+        stars.push({
+            x: Math.random(),
+            y: Math.random(),
+            r: randBetween(0.3, 1.6),
+            twinkle: Math.random() * Math.PI * 2,
+            speed: randBetween(0.003, 0.012)
+        });
+    }
+
+    function spawnShooter() {
+        const angle = randBetween(0.1, 0.5);
+        shootingStars.push({
+            x: Math.random() * W,
+            y: Math.random() * H * 0.5,
+            vx: Math.cos(angle) * randBetween(8, 14),
+            vy: Math.sin(angle) * randBetween(4, 7),
+            len: randBetween(80, 140),
+            life: 1
+        });
+    }
+    setInterval(spawnShooter, 3500);
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        // nebula
+        const grad = ctx.createRadialGradient(W*0.3, H*0.2, 0, W*0.3, H*0.2, W*0.5);
+        grad.addColorStop(0, 'rgba(90,20,150,0.06)');
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
+
+        const grad2 = ctx.createRadialGradient(W*0.75, H*0.65, 0, W*0.75, H*0.65, W*0.45);
+        grad2.addColorStop(0, 'rgba(20,50,120,0.05)');
+        grad2.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad2;
+        ctx.fillRect(0, 0, W, H);
+
+        // stars
+        stars.forEach(s => {
+            s.twinkle += s.speed;
+            const alpha = 0.35 + 0.5 * Math.sin(s.twinkle);
+            ctx.beginPath();
+            ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,252,232,${alpha})`;
+            ctx.fill();
+        });
+
+        // shooting stars
+        shootingStars = shootingStars.filter(ss => ss.life > 0);
+        shootingStars.forEach(ss => {
+            ss.x += ss.vx;
+            ss.y += ss.vy;
+            ss.life -= 0.02;
+
+            const g = ctx.createLinearGradient(ss.x - ss.vx * 6, ss.y - ss.vy * 6, ss.x, ss.y);
+            g.addColorStop(0, 'transparent');
+            g.addColorStop(1, `rgba(244,200,66,${ss.life * 0.9})`);
+            ctx.beginPath();
+            ctx.moveTo(ss.x - ss.vx * 6, ss.y - ss.vy * 6);
+            ctx.lineTo(ss.x, ss.y);
+            ctx.strokeStyle = g;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // head glow
+            ctx.beginPath();
+            ctx.arc(ss.x, ss.y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,200,${ss.life})`;
+            ctx.fill();
+        });
+
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+
+
+/* ── CURSOR ───────────────────────────────────── */
+(function() {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = -100, my = -100;
+    let rx = -100, ry = -100;
+
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px';
+        dot.style.top  = my + 'px';
+    });
+
+    (function animRing() {
+        rx += (mx - rx) * 0.15;
+        ry += (my - ry) * 0.15;
+        ring.style.left = rx + 'px';
+        ring.style.top  = ry + 'px';
+        requestAnimationFrame(animRing);
+    })();
+
+    // sparks on move
+    let lastSpark = 0;
+    document.addEventListener('mousemove', e => {
+        if (Date.now() - lastSpark < 80) return;
+        lastSpark = Date.now();
+        spawnSpark(e.clientX, e.clientY, 1);
+    });
+
+    window.spawnSpark = function(x, y, count = 5) {
+        for (let i = 0; i < count; i++) {
+            const s = document.createElement('div');
+            s.className = 'spark';
+            const size = 3 + Math.random() * 4;
+            const dx = (Math.random() - 0.5) * 60;
+            const dy = (Math.random() - 0.5) * 60 - 20;
+            const hue = Math.random() > 0.5 ? '48,95%,60%' : '270,70%,70%';
+            s.style.cssText = `
+                left:${x}px; top:${y}px;
+                width:${size}px; height:${size}px;
+                background: hsl(${hue});
+                box-shadow: 0 0 ${size*2}px hsl(${hue});
+                --dx:${dx}px; --dy:${dy}px;
+                animation-duration:${0.5 + Math.random() * 0.4}s;
+            `;
+            document.body.appendChild(s);
+            s.addEventListener('animationend', () => s.remove());
+        }
+    };
+})();
+
+
+/* ── SCROLL-IN CARDS ──────────────────────────── */
+(function() {
+    const cards = document.querySelectorAll('.card');
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
             }
+        });
+    }, { threshold: 0.15 });
+    cards.forEach(c => io.observe(c));
+})();
+
+
+/* ── SPELL BUTTON ─────────────────────────────── */
+(function() {
+    const btn   = document.getElementById('spellBtn');
+    const flash = document.getElementById('spell-flash');
+    const scroll = document.getElementById('secret-scroll');
+    const RUNES = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗ✦⋆◈◆';
+    let cast = false;
+
+    btn.addEventListener('click', e => {
+        // flash
+        flash.classList.add('active');
+        setTimeout(() => flash.classList.remove('active'), 300);
+
+        // rune burst from button centre
+        const rect = btn.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top  + rect.height / 2;
+
+        for (let i = 0; i < 12; i++) {
+            const el = document.createElement('div');
+            el.className = 'rune-burst';
+            const angle = (i / 12) * Math.PI * 2;
+            const dist  = 80 + Math.random() * 80;
+            el.textContent = RUNES[Math.floor(Math.random() * RUNES.length)];
+            el.style.cssText = `
+                left:${cx}px; top:${cy}px;
+                --rdx:${Math.cos(angle)*dist}px;
+                --rdy:${Math.sin(angle)*dist}px;
+                --rot:${(Math.random()-0.5)*360}deg;
+                animation-delay:${i * 0.04}s;
+                color: ${Math.random() > 0.5 ? 'var(--gold)' : 'var(--mystic)'};
+            `;
+            document.body.appendChild(el);
+            el.addEventListener('animationend', () => el.remove());
         }
 
-        // Add shake animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                20%, 40%, 60%, 80% { transform: translateX(5px); }
-            }
-        `;
-        document.head.appendChild(style);
+        // big spark burst
+        spawnSpark(cx, cy, 18);
 
-        // Create more floating particles dynamically
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 10 + 's';
-            document.body.appendChild(particle);
-
-            setTimeout(() => {
-                particle.remove();
-            }, 10000);
-        }
-
-        // Create new particles every few seconds
-        setInterval(createParticle, 2000);
-    </script>
+        // toggle secret
+        cast = !cast;
+        scroll.style.display = cast ? 'block' : 'none';
+        btn.querySelector('.spell-icon').textContent = cast ? '✨' : '🪄';
+    });
+})();
+</script>
 </body>
 </html>
