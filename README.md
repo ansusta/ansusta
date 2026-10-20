@@ -20,7 +20,7 @@
 
 ---
 
-## 📓 A little page about me
+##  A little page about me
 
 ```text
 system status:
@@ -50,7 +50,7 @@ holdup One minute i was gonna make something cool but uh I'm still making it, it
 
 ---
 
-##  Things I can convince a computer to do(with sorcery)
+##  Things I can convince a computer to do (with sorcery)
 
 ###  Languages
 
