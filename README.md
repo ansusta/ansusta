@@ -5,11 +5,11 @@
 </p>
 # 𐙚 Hi, I'm Thassousna!
 
-### `computer science student` · `professional overthinker` · `curious human`
+### `computer science student` · `professional overthinker` · `curious human`.`digital witch`
 
 🎓 Master's student in Software Engineering  
 📍 Rouen, France  
-☀️ Looking for a **Summer 2027 internship** & a **2027–2028 apprenticeship**
+ Looking for a **Summer 2027 internship** & a **2027–2028 apprenticeship**
 
 *Building things, breaking things, figuring out why they broke.*
 
@@ -27,15 +27,16 @@ system status:
 🖥️ screen time    ██████████
 🧠 curiosity      ██████████
 🐛 debugging      ███████░░░
+✨ mana levels    ██████░░░░
 😴 sleep          ██░░░░░░░░
 🌱 grass touched  ░░░░░░░░░░
 ```
 
-- 🧩 I like solving problems and understanding how things work under the hood.
-- 🎮 I enjoy making little games with **Godot** and **GDScript**.
-- 🔍 I find reverse engineering fascinating — shout-out to **Ghidra** and **x64dbg**.
-- 🎨 I draw, I read, and I occasionally disappear into a new rabbit hole.
-- 💡 I love learning new things, especially when they make me see familiar things differently.
+-  I like solving problems and understanding how things work under the hood.
+-  I enjoy making little games with **Godot** and **GDScript**.
+-  I find reverse engineering fascinating — shout-out to **Ghidra** and **x64dbg**.
+-  I draw, I read, and I occasionally disappear into a new rabbit hole.
+-  I love learning new things, especially when they make me see familiar things differently.
 
 <details>
 <summary>🪄 Fun fact: I have too many interests. Click me!</summary>
@@ -49,9 +50,9 @@ holdup One minute i was gonna make something cool but uh I'm still making it, it
 
 ---
 
-## 🧰 Things I can convince a computer to do
+##  Things I can convince a computer to do(with sorcery)
 
-### 💻 Languages
+###  Languages
 
 ![Java](https://img.shields.io/badge/Java-f7f8fc?style=flat-square&logo=openjdk&logoColor=16213e)
 ![JavaScript](https://img.shields.io/badge/JavaScript-f7f8fc?style=flat-square&logo=javascript&logoColor=16213e)
@@ -65,7 +66,7 @@ holdup One minute i was gonna make something cool but uh I'm still making it, it
 ![CSS3](https://img.shields.io/badge/CSS3-f7f8fc?style=flat-square&logo=css3&logoColor=16213e)
 ![GDScript](https://img.shields.io/badge/GDScript-f7f8fc?style=flat-square&logo=godotengine&logoColor=16213e)
 
-### 🛠️ My digital toolbox
+###  My digital toolbox
 
 **Web & app development**
 
@@ -97,7 +98,7 @@ holdup One minute i was gonna make something cool but uh I'm still making it, it
 
 ---
 
-## 🌍 Words I speak
+##  Words I speak
 
 | Language | Level |
 |---|---|
