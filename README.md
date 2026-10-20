@@ -1,6 +1,8 @@
 
 <div align="center">
-
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Courier+Prime&size=16&duration=3000&pause=1000&color=7C83FD&center=true&vCenter=true&width=450&lines=currently+debugging+my+life+%E2%9C%A7;probably+have+too+many+tabs+open;loading+new+ideas...;404%3A+motivation+not+found" alt="Animated typing text" />
+</p>
 # 𐙚 Hi, I'm Thassousna!
 
 ### `computer science student` · `professional overthinker` · `curious human`
