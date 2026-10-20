@@ -107,7 +107,7 @@ holdup One minute i was gonna make something cool but uh I'm still making it, it
 | 🇩🇿 Arabic | Fluent |
 | 🇫🇷 French | Fluent |
 | 🇮🇹 Italian | Beginner |
-| 🇮🇹 chinese | Beginner |
+| cn chinese | Beginner |
 
 *Multilingual brain, occasionally multilingual typos.*
 
