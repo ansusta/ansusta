@@ -2,7 +2,7 @@
 <div align="center">
 
 # Thassousna Boukirat
-### Étudiante en génie logiciel · Développement full-stack · IA
+### Étudiante en génie logiciel · Développement full-stack 
 
 *Concevoir, comprendre, construire — et savoir pourquoi.*
 
